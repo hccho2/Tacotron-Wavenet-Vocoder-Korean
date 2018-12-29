@@ -24,8 +24,8 @@ Based on
 - [Tacotron2](https://arxiv.org/abs/1712.05884)에서는 모델 구조도 바뀌었고, Location Sensitive Attention, Stop Token, Vocoder로 Wavenet을 제안하고 있다.
 
 ## This Project
-- Tacotron 모델에 Wavenet Vocoder를 적용하는 것이 1차 목표이다.
-- Tacotron2의 stop token이나 Location Sensitive Attention은 그렇게 효과적이지 못했다(제 경험상).
-- carpedm20의 구현과 다른 점
- - Tensorflow 1.3에서만 실행되는 carpedm20의 구현을 tensorflow 1.8이상에서도 작동할 수 있게 수정.
- - dropout bug 수정 
+* Tacotron 모델에 Wavenet Vocoder를 적용하는 것이 1차 목표이다.
+* Tacotron2의 stop token이나 Location Sensitive Attention은 그렇게 효과적이지 못했다(제 경험상).
+* carpedm20의 구현과 다른 점
+ * Tensorflow 1.3에서만 실행되는 carpedm20의 구현을 tensorflow 1.8이상에서도 작동할 수 있게 수정.
+ * dropout bug 수정 
