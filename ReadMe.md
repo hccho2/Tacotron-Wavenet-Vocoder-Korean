@@ -29,3 +29,21 @@ Based on
 * carpedm20의 구현과 다른 점
     * Tensorflow 1.3에서만 실행되는 carpedm20의 구현을 tensorflow 1.8이상에서도 작동할 수 있게 수정.
     * dropout bug 수정 
+	* DecoderPrenetWrapper, AttentionWrapper 순서를 바로 잡음. 이렇게 해야 keithito의 구현과 같아지고 논문에서의 취지와도 일치함.
+	* mel spectrogram 생성 방식을 keithito의 구현 방법으로 환원. 이렇게 mel spectrogram 생성방식을 바꾸면 train 속도가 많이 향상됨.
+
+	
+## 좋은 결과를 얻기 위해서는 
+- BahdanauMonotonicAttention에 normalize=True로 적용하면 Attention이 잘 학습된다.
+
+
+
+## 단계별 실행
+
+# 실행 순서
+- data 만들기
+- tacotron training 후, synthesize.py로 test.
+- wavenet training 후, generate.py로 test(tactron이 만들지 않은 mel spectrogram으로 test)
+- 2개 모델 모두 train 후, tacotron에서 생성한 mel spectrogram을 wavent에 local condition으로 넣어 test하면 된다.
+
+# Data 만들기
