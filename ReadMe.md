@@ -1,30 +1,23 @@
-# Wavenet implementation using Tensorflow tf.layers.conv1d
-The goal of the repository is to provide an implementation of the WaveNet with Tensorflow middle level api(tf.layers.conv1d).
-
-Based on https://github.com/ibab/tensorflow-wavenet
+# Tocotron + Wavenet Vocoder + Korean TTS
 
 
-
-## Highlights
-
-- (The main of this project) Dilation convolutions are implented by tf.layers.conv1d(We removed the method '_create_variables' of the ibab's implementation)
-- fast generation algorithm(https://github.com/tomlepaine/fast-wavenet)
-- We improved Fast wavenet implementation to filter_width >= 1 and batch_size >= 1  by using Queues.
-- Mixture of logistic distributions loss / sampling(https://github.com/Rayhane-mamah/Tacotron-2)
-
-## To Do
-
-- [x] global condition
-- [x] multi speaker
-- [ ] multi gpu
-- [x] dilation convolution by tf.layers.conv1d(i.e. without explicit tf.Variables declaration)
-- [x] mixture logistic distribution for scalar inputs
-- [ ] local condition
-- [ ] Tacotron + Wavenet Vocoder 
+Based on 
+https://github.com/keithito/tacotron
+https://github.com/carpedm20/multi-speaker-tacotron-tensorflow
+https://github.com/ibab/tensorflow-wavenet
+https://github.com/r9y9/wavenet_vocoder
+https://github.com/Rayhane-mamah/Tacotron-2
 
 
-```
-FILE_PATTERN = r'NB([0-9])([0-9]+).([0-9]+)\.wav' 
-```
-FILE_PATTERN in [audio_reader.py](https://github.com/hccho2/wavenet-tf.layers.conv1d/blob/master/wavenet/audio_reader.py)
-shoud be modified depending on your audio file names.
+
+## Tototorn Model History
+- kiithito이 Tocotron을 처음 구현하여 공개하였고, 이를 기반으로 한국어를 적용한 carpedm20의 구현이 있다.
+- carpedm20의 구현은 deep voice2에서 제안하고 있는 multi-speaker도 같이 구현했다.
+- Tacotron모델에서는 vocoder로 Griffin Lim 알고리즘을 사용하고 있다.
+
+## Wavenet History
+- Wavenet 구현은 [ibab](https://github.com/ibab/tensorflow-wavenet)의 구현이 대표적이다.
+- ibab의 구현은 local condition을 구현하지 않았다. 그래서 train 후, 소리를 생성하면 알아들을 수 있는 말이 아니고, '옹알거리는 소리'만 들을 수 있다.
+- local condition을 구현한 wavenet-vocoder 구현은 [r9y9](https://github.com/r9y9/wavenet_vocoder)의 구현이 대표적이다.
+
+
