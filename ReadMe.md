@@ -30,12 +30,14 @@ Based on
     * Tensorflow 1.3에서만 실행되는 carpedm20의 구현을 tensorflow 1.8이상에서도 작동할 수 있게 수정.
     * dropout bug 수정 
 	* DecoderPrenetWrapper, AttentionWrapper 순서를 바로 잡음. 이렇게 해야 keithito의 구현과 같아지고 논문에서의 취지와도 일치함.
-	* mel spectrogram 생성 방식을 keithito의 구현 방법으로 환원. 이렇게 mel spectrogram 생성방식을 바꾸면 train 속도가 많이 향상됨.
+	* mel spectrogram 생성 방식을 keithito의 구현 방법으로 환원. 이렇게 mel spectrogram 생성방식을 바꾸면 train 속도가 많이 향상됨. 20k step 이상 train해야 소리가 들리기 시작하는데, 이렇게 하면 8k step부터 소리가 들린다.
+* ibab의 wavenet구현은 [fast generation](https://github.com/tomlepaine/fast-wavenet)을 위해서 tf.Variable을 이용해서 구현했다. 이 project에서는 Tensorflow middle level api tf.conv1d를 이용하여, 코드를 이해하기 쉽게 만들었다.
+
 
 	
 ## Tacotron에서 좋은 결과를 얻기 위해서는 
 - BahdanauMonotonicAttention에 normalize=True로 적용하면 Attention이 잘 학습된다.
-
+- Location Sensitive Attention GMM Attention등은 제 경험으로는 성능이 잘 나지 않았다.
 
 
 ## 단계별 실행
@@ -47,3 +49,12 @@ Based on
 - 2개 모델 모두 train 후, tacotron에서 생성한 mel spectrogram을 wavent에 local condition으로 넣어 test하면 된다.
 
 ### Data 만들기
+- audio data(e.g. wave 파일)을 다운받고,  1~3초(최대 12초)길이로 잘라주는 작업을 해야 한다. 그리고  잘라진 audio와 text(script)의 sync를 맞추는 것은 고단한 작업이다.
+- 특별히 data를 확보할 방법이 없으면, [carpedm20](https://github.com/carpedm20/multi-speaker-tacotron-tensorflow)에서 설명하고 있는대로 하면 된다. 여기서는 data를 다운받은 후, 침묵(silence)구간을 기준으로 자른 후, Google Speech API를 이용하여 text와 sync를 맞추고 있다.
+- 한글 data는 [KSS Dataset](https://www.kaggle.com/bryanpark/korean-single-speaker-speech-dataset)도 있다.
+- 영어 data는 [LJ Speech Dataset](https://keithito.com/LJ-Speech-Dataset/), [VCTK corpus](http://homepages.inf.ed.ac.uk/jyamagis/page3/page58/page58.html) 등이 있다.
+
+### Tacotron Train
+```
+> python train_tacotron.py
+```
