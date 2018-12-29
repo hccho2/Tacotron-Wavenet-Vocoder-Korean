@@ -2,11 +2,11 @@
 
 
 Based on 
-https://github.com/keithito/tacotron
-https://github.com/carpedm20/multi-speaker-tacotron-tensorflow
-https://github.com/ibab/tensorflow-wavenet
-https://github.com/r9y9/wavenet_vocoder
-https://github.com/Rayhane-mamah/Tacotron-2
+- https://github.com/keithito/tacotron
+- https://github.com/carpedm20/multi-speaker-tacotron-tensorflow
+- https://github.com/ibab/tensorflow-wavenet
+- https://github.com/r9y9/wavenet_vocoder
+- https://github.com/Rayhane-mamah/Tacotron-2
 
 
 
