@@ -60,13 +60,30 @@ Based on
 - 한글 data는 [KSS Dataset](https://www.kaggle.com/bryanpark/korean-single-speaker-speech-dataset)도 있다.
 - 영어 data는 [LJ Speech Dataset](https://keithito.com/LJ-Speech-Dataset/), [VCTK corpus](http://homepages.inf.ed.ac.uk/jyamagis/page3/page58/page58.html) 등이 있다.
 - KSS Dataset이나 LJ Speech Dataset는 이미 적당한 길이로 나누어져 있기 때문에, data의 Quality는 우수하다.
+- data 디렉토리 아래에 화자별로 wav 파일들이 만들어 지면, train할 수 있는 준비가 완료된 것이다.
+
+
 ### Tacotron Training
+- train_tacotron.py 내에서 '--data_paths'를 지정한 후, train할 수 있다.
 ```
-> python train_tacotron.py
+parser.add_argument('--data_paths', default='D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son')
 ```
+
+> python train_tacotron.py.
+
+
+
+
+
 
 ### Wavenet Vocoder Training
-
+```
+> python train_wavenet.py
+```
 
 ### 음성을 처음 공부하는 분들께
-
+* Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
+* 이를 통해, wav로 된 음성을 stft으로 변환하고 다시 mel spectrogram으로 변환하는 과정을 공부할 수 있다. 
+* Simple Audio Recognition을 공부한 후에는 Tacotron을 공부할 수 있수도 있지만, 딥러닝에서의 기본인 RNN, Attention에 관한 공부를 미리해 두며 더욱 좋다.
+* 이 [자료](https://github.com/hccho2/hccho2.github.io/blob/master/DeepLearning.pdf)는 음성인식 기초, Tacotron, Wavenet 등에 관한 내용을 제가 정리한 것입니다(page 133).
+* 또한 Tensorflow에서 Attention Mechanism이 어떻게 작동되는지에 관한 자료도 정리되어 있습니다(page 69).
