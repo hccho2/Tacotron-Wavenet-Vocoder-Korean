@@ -114,7 +114,6 @@ class Tacotron():
                                     hp.enc_maxpool_width, hp.enc_highway_depth, hp.enc_rnn_size,hp.enc_proj_sizes, hp.enc_proj_width,
                                     scope="encoder_cbhg",before_highway=before_highway,encoder_rnn_init_state=encoder_rnn_init_state)
 
-            self.hccho = encoder_outputs
             ##############
             # Attention
             ##############
