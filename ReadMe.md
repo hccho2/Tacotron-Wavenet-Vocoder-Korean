@@ -11,7 +11,7 @@ Based on
 
 
 ## Tocotron History
-- [kiithito](https://github.com/keithito/tacotron)가 Tocotron을 처음 구현하여 공개하였고, 이를 기반으로 한국어를 적용한 [carpedm20](https://github.com/carpedm20/multi-speaker-tacotron-tensorflow)의 구현이 있다.
+- [keithito](https://github.com/keithito/tacotron)가 Tocotron을 처음 구현하여 공개하였고, 이를 기반으로 한국어를 적용한 [carpedm20](https://github.com/carpedm20/multi-speaker-tacotron-tensorflow)의 구현이 있다.
 - carpedm20의 구현은 deep voice2에서 제안하고 있는 multi-speaker도 같이 구현했다.
 - Tacotron모델에서는 vocoder로 Griffin Lim 알고리즘을 사용하고 있다.
 
