@@ -151,7 +151,7 @@ class Tacotron():
 
 
             # DecoderPrenetWrapper, attention_mechanism을 결합하여 AttentionWrapper를 만든다.
-            # 김태훈은  tensorflow 소스를코드를 가져와서 AttentionWrapper를 새로 구현했지만,  keith Ito는 tensorflow AttentionWrapper를 그냥 사용했다.
+            # carpedm20은  tensorflow 소스를코드를 가져와서 AttentionWrapper를 새로 구현했지만,  keith Ito는 tensorflow AttentionWrapper를 그냥 사용했다.
             attention_cell = AttentionWrapper(GRUCell(hp.attention_state_size),attention_mechanism, self.is_manual_attention,self.manual_alignments,
                                               initial_cell_state=attention_rnn_init_state,alignment_history=True,output_attention=False)  # output_attention=False 에 주목, attention_layer_size에 값을 넣지 않았다. 그래서 attention = contex vector가 된다.
 
