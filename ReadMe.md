@@ -35,9 +35,10 @@ Based on
 	* DecoderPrenetWrapper, AttentionWrapper 순서를 바로 잡음. 이렇게 해야 keithito의 구현과 같아지고 논문에서의 취지와도 일치함(사실 keithito의 초기 구현에서도 잘못되어 있었는데, 나중에 수정되었음 ).
 	* mel spectrogram 생성 방식을 keithito의 구현 방법으로 환원(이것도 keithito가 추후에 수정한 것임). 이렇게 mel spectrogram 생성방식을 바꾸면 train 속도가 많이 향상됨. 20k step 이상 train해야 소리가 들리기 시작하는데, 이렇게 하면 8k step부터 소리가 들린다.
 	* padding이 된 곳에 Attention이 가지 않도록 보완.
-	* Attention 모델 추가: 
-* ibab의 wavenet구현은 [fast generation](https://github.com/tomlepaine/fast-wavenet)을 위해서 tf.Variable을 이용해서 구현했다. 이 project에서는 Tensorflow middle level api tf.conv1d를 이용하여, 코드를 이해하기 쉽게 만들었다.
-
+	* Attention 모델 추가: LocationSensitiveAttention, GmmAttention 등
+* ibab의 wavenet 구현과 다른 점
+	*[fast generation](https://github.com/tomlepaine/fast-wavenet)을 위해서 tf.Variable을 이용해서 구현했다. 이 project에서는 Tensorflow middle level api tf.conv1d를 이용하여, 코드를 이해하기 쉽게 만들었다.
+* 참고 코드 등에서의 복잡한 option을 많이 줄렸습니다.
 
 	
 ## Tacotron에서 좋은 결과를 얻기 위해서는 
