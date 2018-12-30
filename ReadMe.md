@@ -105,3 +105,4 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 * Simple Audio Recognition을 공부한 후에는 Tacotron을 공부할 수 있수도 있지만, 딥러닝에서의 기본인 RNN, Attention에 관한 공부를 미리해 두며 더욱 좋다.
 * 이 [자료](https://github.com/hccho2/hccho2.github.io/blob/master/DeepLearning.pdf)는 음성인식 기초, Tacotron, Wavenet 등에 관한 내용을 제가 정리한 것입니다(page 133).
 * 또한 Tensorflow에서 Attention Mechanism이 어떻게 작동되는지에 관한 자료도 정리되어 있습니다(page 69).
+* Facebook TFKR에 제가 작성한 [글](https://www.facebook.com/groups/TensorFlowKR/permalink/813421485665578/)도 참고하세요.
