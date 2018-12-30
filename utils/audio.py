@@ -233,13 +233,6 @@ def _denormalize(D, hparams):
     else:
         return ((D * -hparams.min_level_db / hparams.max_abs_value) + hparams.min_level_db)
 
-# 김태훈 구현. 이 차이 때문에 호환이 되지 않는다.
-# def _normalize(S,hparams):
-#     return np.clip((S - hparams.min_level_db) / -hparams.min_level_db, 0, 1)  # min_level_db = -100
-# 
-# def _denormalize(S,hparams):
-#     return (np.clip(S, 0, 1) * -hparams.min_level_db) + hparams.min_level_db
-
 #From https://github.com/r9y9/nnmnkwii/blob/master/nnmnkwii/preprocessing/generic.py
 def mulaw(x, mu=256):
     """Mu-Law companding
