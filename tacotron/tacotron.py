@@ -125,7 +125,7 @@ class Tacotron():
 
             # single: attention_size = 128
             if hp.attention_type == 'bah_mon':
-                attention_mechanism = BahdanauMonotonicAttention(hp.attention_size, encoder_outputs,normalize=False)
+                attention_mechanism = BahdanauMonotonicAttention(hp.attention_size, encoder_outputs,memory_sequence_length=input_lengths,normalize=False)
             elif hp.attention_type == 'bah_mon_norm':  # hccho 추가
                 attention_mechanism = BahdanauMonotonicAttention(hp.attention_size, encoder_outputs,memory_sequence_length = input_lengths, normalize=True) 
             elif hp.attention_type == 'loc_sen': # Location Sensitivity Attention
@@ -135,16 +135,13 @@ class Tacotron():
             elif hp.attention_type == 'bah_mon_norm_hccho':
                 attention_mechanism = BahdanauMonotonicAttention_hccho(hp.attention_size, encoder_outputs,normalize=True)     
             elif hp.attention_type == 'bah_norm':
-                attention_mechanism = BahdanauAttention(hp.attention_size, encoder_outputs, normalize=True)
+                attention_mechanism = BahdanauAttention(hp.attention_size, encoder_outputs,memory_sequence_length=input_lengths, normalize=True)
             elif hp.attention_type == 'luong_scaled':
-                attention_mechanism = LuongAttention( hp.attention_size, encoder_outputs, scale=True)
+                attention_mechanism = LuongAttention( hp.attention_size, encoder_outputs,memory_sequence_length=input_lengths, scale=True)
             elif hp.attention_type == 'luong':
-                attention_mechanism = LuongAttention(hp.attention_size, encoder_outputs)
+                attention_mechanism = LuongAttention(hp.attention_size, encoder_outputs,memory_sequence_length=input_lengths)
             elif hp.attention_type == 'bah':
-                attention_mechanism = BahdanauAttention(hp.attention_size, encoder_outputs)
-            elif hp.attention_type.startswith('ntm2'):
-                shift_width = int(hp.attention_type.split('-')[-1])
-                attention_mechanism = NTMAttention2( hp.attention_size, encoder_outputs, shift_width=shift_width)
+                attention_mechanism = BahdanauAttention(hp.attention_size, encoder_outputs,memory_sequence_length=input_lengths)
             else:
                 raise Exception(" [!] Unkown attention type: {}".format(hp.attention_type))
 
