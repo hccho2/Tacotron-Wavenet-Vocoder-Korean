@@ -60,7 +60,10 @@ Based on
 - 한글 data는 [KSS Dataset](https://www.kaggle.com/bryanpark/korean-single-speaker-speech-dataset)도 있다.
 - 영어 data는 [LJ Speech Dataset](https://keithito.com/LJ-Speech-Dataset/), [VCTK corpus](http://homepages.inf.ed.ac.uk/jyamagis/page3/page58/page58.html) 등이 있다.
 - KSS Dataset이나 LJ Speech Dataset는 이미 적당한 길이로 나누어져 있기 때문에, data의 Quality는 우수하다.
-- data 디렉토리 아래에 화자별로 wav 파일들이 만들어 지면, train할 수 있는 준비가 완료된 것이다.
+- 각 speaker별로 wav 파일을 특정 directory에 모은 후, text와 wav파일의 관계를 설정하는 파일을 만든 후, preprocess.py를 실행하면 된다. 다음의 예는 son.py에서 확인 할 수 있듯이 'son-recognition-All.json'에 필요한 정보를 모아 놓았다.
+- 각자의 상황에 맞게 preprocessing하는 코드를 작성해야 한다.
+> python preprocess.py --num_workers 8 --name son --in_dir D:\datasets\son --out_dir .\data\son
+- 위의 과정을 거치든 또는 다른 방법을 사용하든 speaker별 data 디렉토리에 npz파일이 생성되면 train할수 있는 준비가 끝난다. 
 
 
 ### Tacotron Training
@@ -68,18 +71,32 @@ Based on
 ```
 parser.add_argument('--data_paths', default='D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son')
 ```
-
+- train을 이어서 계속하는 경우에는 '--load_path'를 지정해 주면 된다.
+```
+parser.add_argument('--load_path', default='logdir-tacotron/moon+son_2018-12-25_19-03-21')
+```
 > python train_tacotron.py.
-
+- train 후, 음성을 생성하려면 다음과 같이 하면 된다. '--num_speaker', '--speaker_id'는 잘 지정되어야 한다.
+> python synthesizer.py --load_path logdir-tacotron/moon+son_2018-12-25_19-03-21 --num_speakers 2 --speaker_id 0 --text "오스트랄로피테쿠스 아파렌시스는 멸종된 사람족 종으로, 현재에는 뼈 화석이 발견되어 있다." 
 
 
 
 
 
 ### Wavenet Vocoder Training
+- train_vocoder.py 내에서 '--data_dir'를 지정한 후, train할 수 있다.
 ```
-> python train_wavenet.py
+DATA_DIRECTORY =  'D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son'
+parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
 ```
+- train을 이어서 계속하는 경우에는 '--logdir'를 지정해 주면 된다.
+```
+LOGDIR = './/logdir-wavenet//train//2018-12-21T22-58-10'
+parser.add_argument('--logdir', type=str, default=LOGDIR)
+```
+
+
+
 
 ### 음성을 처음 공부하는 분들께
 * Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
