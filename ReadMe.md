@@ -67,3 +67,6 @@ Based on
 
 ### Wavenet Vocoder Training
 
+
+### 음성을 처음 공부하는 분들께
+
