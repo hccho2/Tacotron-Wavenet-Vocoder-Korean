@@ -37,8 +37,8 @@ def main():
     parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
 
 
-    #LOGDIR = None
-    LOGDIR = './/logdir-wavenet//train//2018-12-21T22-58-10'
+    LOGDIR = None
+    #LOGDIR = './/logdir-wavenet//train//2018-12-21T22-58-10'
 
     parser.add_argument('--logdir', type=str, default=LOGDIR,help='Directory in which to store the logging information for TensorBoard. If the model already exists, it will restore the state and will continue training. Cannot use with --logdir_root and --restore_from.')
     
