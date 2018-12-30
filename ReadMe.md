@@ -19,6 +19,7 @@ Based on
 - Wavenet 구현은 [ibab](https://github.com/ibab/tensorflow-wavenet)의 구현이 대표적이다.
 - ibab은 local condition을 구현하지 않았다. 그래서 train 후, 소리를 생성하면 알아들을 수 있는 말이 아니고, '옹알거리는 소리'만 들을 수 있다. 의미 있는 소리를 들을 수 있기 위해서는 local condition이 적용해서 구현해야 한다.
 - local condition을 구현한 wavenet-vocoder 구현은 [r9y9](https://github.com/r9y9/wavenet_vocoder)의 구현이 대표적이다.
+- local condition으로 mel spectrogram을 넣어주는데, mel spectrogram은 raw audio 길이보다 짧아지기 때문에 upsampling 과정이 필요하다. upsampling은 conv2d_transpose를 이용한다.
 
 ## Tacotron 2
 - [Tacotron2](https://arxiv.org/abs/1712.05884)에서는 모델 구조도 바뀌었고, Location Sensitive Attention, Stop Token, Vocoder로 Wavenet을 제안하고 있다.
@@ -26,6 +27,7 @@ Based on
 
 ## This Project
 * Tacotron 모델에 Wavenet Vocoder를 적용하는 것이 1차 목표이다.
+* Tacotron과 Wavenet Vocoder를 같이 구현하기 위해서는 mel spectrogram을 만들때 부터, 두 모델 모두에 적용할 수 있도록 만들어 주어야 한다(audio의 길이가 hop_size의 배수가 될 수 있도록). 이렇게 해야, wavenet training할 때, upsampling이 원할하다.
 * Tacotron2의 stop token이나 Location Sensitive Attention은 그렇게 효과적이지 못했다(제 경험상).
 * carpedm20의 구현과 다른 점
     * Tensorflow 1.3에서만 실행되는 carpedm20의 구현을 tensorflow 1.8이상에서도 작동할 수 있게 수정.
