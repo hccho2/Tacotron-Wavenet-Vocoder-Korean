@@ -37,7 +37,7 @@ Based on
 	* padding이 된 곳에 Attention이 가지 않도록 보완.
 	* Attention 모델 추가: LocationSensitiveAttention, GmmAttention 등
 * ibab의 wavenet 구현과 다른 점
-	*[fast generation](https://github.com/tomlepaine/fast-wavenet)을 위해서 tf.Variable을 이용해서 구현했다. 이 project에서는 Tensorflow middle level api tf.conv1d를 이용하여, 코드를 이해하기 쉽게 만들었다.
+	* [fast generation](https://github.com/tomlepaine/fast-wavenet)을 위해서 tf.Variable을 이용해서 구현했다. 이 project에서는 Tensorflow middle level api tf.conv1d를 이용하여, 코드를 이해하기 쉽게 만들었다.
 * 참고 코드 등에서의 복잡한 option을 많이 줄렸습니다.
 
 	
