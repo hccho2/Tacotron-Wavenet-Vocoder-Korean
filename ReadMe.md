@@ -97,7 +97,12 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 - wavenet train 후, tacotron이 생성한 mel spectrogram(npy파일)을 local condition으로 넣어서 STT의 최종 결과를 얻을 수 있다.
 > python generate.py --mel ./logdir-wavenet/mel-moon.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2018-12-21T22-58-10
 
-
+### Result
+- tacotron모델에서는 griffin lim vocoder를 통해서 audio sample을 만들어 내는데, 음질이 나쁘지 않다.
+- wavenet vocoder는 train step이 부족할 때는 좋은 결과를 얻기 어렵다. 다음 issue들에서도 그런 사실을 확인할 수 있다.
+	- https://github.com/r9y9/wavenet_vocoder/issues/110 : 1000K 이상 train해야 noise 없는 결과를 얻을 수 있다고 말하고 있다.
+	- https://github.com/keithito/tacotron/issues/64 : train 속도가 느리고, 좋은 결과를 얻지 못했다고 말하고 있다.
+	- https://github.com/r9y9/wavenet_vocoder/issues/1 : step 80K, 90K 결과가 첨부되어 있는데, 결과가 좋지는 못하다.
 
 ### 음성을 처음 공부하는 분들께
 * Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
