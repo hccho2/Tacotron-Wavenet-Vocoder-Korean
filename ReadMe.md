@@ -51,7 +51,7 @@ Based on
 ### 실행 순서
 - data 만들기
 - tacotron training 후, synthesize.py로 test.
-- wavenet training 후, generate.py로 test(tactron이 만들지 않은 mel spectrogram으로 test)
+- wavenet training 후, generate.py로 test(tactron이 만들지 않은 mel spectrogram으로 test할 수도 있고, tacotron이 만든 mel spectrogram을 사용할 수도 있다.)
 - 2개 모델 모두 train 후, tacotron에서 생성한 mel spectrogram을 wavent에 local condition으로 넣어 test하면 된다.
 
 ### Data 만들기
