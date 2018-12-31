@@ -80,8 +80,8 @@ parser.add_argument('--load_path', default='logdir-tacotron/moon+son_2018-12-25_
 ```
 parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder\\data\\moon')
 ```
-
-> python train_tacotron.py.
+- 하이퍼파라메터를 hparmas.py에서 argument를 train_tacotron.py에서 다 설정했기 때문에, train 실행은 다음과 같이 단순합니다.
+> python train_tacotron.py
 - train 후, 음성을 생성하려면 다음과 같이 하면 된다. '--num_speaker', '--speaker_id'는 잘 지정되어야 한다.
 > python synthesizer.py --load_path logdir-tacotron/moon+son_2018-12-25_19-03-21 --num_speakers 2 --speaker_id 0 --text "오스트랄로피테쿠스 아파렌시스는 멸종된 사람족 종으로, 현재에는 뼈 화석이 발견되어 있다." 
 
