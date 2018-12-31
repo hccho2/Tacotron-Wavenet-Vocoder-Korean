@@ -107,8 +107,8 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 - 이 project에서 얻은 결과:
 	- [sample-son](https://www.dropbox.com/s/7bvlwjy09do5yxb/son-%EC%98%A4%EC%8A%A4%ED%8A%B8.wav?dl=0): tacotron(griffin-lim, step 106K)
 	- [sample-moon](https://www.dropbox.com/s/y1kgmzka0cxp81d/moon-%EC%98%A4%EC%8A%A4%ED%8A%B8.wav?dl=0): tacotron(griffin-lim, step 106K)
-	- (sample)[]: tacotron + wavenet vocoder(step 245K)
-	- (sample)[]: tacotron + wavenet vocoder(step 245K)
+	- (sample-son)[https://www.dropbox.com/s/feptz8bfx7vsxlj/son-wavenet.wav?dl=0]: tacotron + wavenet vocoder(step 245K)
+	- (sample-moon)[https://www.dropbox.com/s/rcz29g64v6pyzhv/moon-wavenet.wav?dl=0]: tacotron + wavenet vocoder(step 245K)
 
 ### 음성을 처음 공부하는 분들께
 * Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
