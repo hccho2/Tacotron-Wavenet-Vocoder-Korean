@@ -105,8 +105,10 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 	- https://github.com/r9y9/wavenet_vocoder/issues/1 : step 80K, 90K 결과가 첨부되어 있는데, 결과가 좋지는 못하다.
 	- https://r9y9.github.io/wavenet_vocoder/ : 그럼에도 좀 더 많은 train step을 수행하면 좋은 결과가 얻어지는 것을 확인할 수 있다.
 - 이 project에서 얻은 결과:
-	- xxx
-	- xxx
+	- [sample-son](https://www.dropbox.com/s/7bvlwjy09do5yxb/son-%EC%98%A4%EC%8A%A4%ED%8A%B8.wav?dl=0): tacotron(griffin-lim, step 106K)
+	- [sample-moon](https://www.dropbox.com/s/y1kgmzka0cxp81d/moon-%EC%98%A4%EC%8A%A4%ED%8A%B8.wav?dl=0): tacotron(griffin-lim, step 106K)
+	- (sample)[]: tacotron + wavenet vocoder(step 245K)
+	- (sample)[]: tacotron + wavenet vocoder(step 245K)
 
 ### 음성을 처음 공부하는 분들께
 * Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
