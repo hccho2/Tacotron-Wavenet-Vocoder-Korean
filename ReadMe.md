@@ -103,6 +103,10 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 	- https://github.com/r9y9/wavenet_vocoder/issues/110 : 1000K 이상 train해야 noise 없는 결과를 얻을 수 있다고 말하고 있다.
 	- https://github.com/keithito/tacotron/issues/64 : train 속도가 느리고, 좋은 결과를 얻지 못했다고 말하고 있다.
 	- https://github.com/r9y9/wavenet_vocoder/issues/1 : step 80K, 90K 결과가 첨부되어 있는데, 결과가 좋지는 못하다.
+	- https://r9y9.github.io/wavenet_vocoder/ : 그럼에도 좀 더 많은 train step을 수행하면 좋은 결과가 얻어지는 것을 확인할 수 있다.
+- 이 project에서 얻은 결과:
+	- xxx
+	- xxx
 
 ### 음성을 처음 공부하는 분들께
 * Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
