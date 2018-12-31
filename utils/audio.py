@@ -233,6 +233,13 @@ def _denormalize(D, hparams):
     else:
         return ((D * -hparams.min_level_db / hparams.max_abs_value) + hparams.min_level_db)
 
+# 김태훈 구현. 이 차이 때문에 호환이 되지 않는다.
+# def _normalize(S,hparams):
+#     return np.clip((S - hparams.min_level_db) / -hparams.min_level_db, 0, 1)  # min_level_db = -100
+# 
+# def _denormalize(S,hparams):
+#     return (np.clip(S, 0, 1) * -hparams.min_level_db) + hparams.min_level_db
+
 #From https://github.com/r9y9/nnmnkwii/blob/master/nnmnkwii/preprocessing/generic.py
 def mulaw(x, mu=256):
     """Mu-Law companding
@@ -252,7 +259,7 @@ def mulaw(x, mu=256):
     .. [1] Brokish, Charles W., and Michele Lewis. "A-law and mu-law companding
         implementations using the tms320c54x." SPRA163 (1997).
     """
-    mu = 255
+    mu = mu-1
     return _sign(x) * _log1p(mu * _abs(x)) / _log1p(mu)
 
 
@@ -271,7 +278,6 @@ def inv_mulaw(y, mu=256):
         :func:`nnmnkwii.preprocessing.mulaw_quantize`
         :func:`nnmnkwii.preprocessing.inv_mulaw_quantize`
     """
-    mu = 255
     return _sign(y) * (1.0 / mu) * ((1.0 + mu)**_abs(y) - 1.0)
 
 
@@ -303,7 +309,6 @@ def mulaw_quantize(x, mu=256):
         :func:`nnmnkwii.preprocessing.inv_mulaw`
         :func:`nnmnkwii.preprocessing.inv_mulaw_quantize`
     """
-    mu = 255
     y = mulaw(x, mu)
     # scale [-1, 1] to [0, mu]
     return _asint((y + 1) / 2 * mu)
@@ -331,7 +336,6 @@ def inv_mulaw_quantize(y, mu=256):
         :func:`nnmnkwii.preprocessing.mulaw_quantize`
     """
     # [0, m) to [-1, 1]
-    mu = 255
     y = 2 * _asfloat(y) / mu - 1
     return inv_mulaw(y, mu)
 
