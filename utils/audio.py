@@ -259,7 +259,6 @@ def mulaw(x, mu=256):
     .. [1] Brokish, Charles W., and Michele Lewis. "A-law and mu-law companding
         implementations using the tms320c54x." SPRA163 (1997).
     """
-    mu = mu-1
     return _sign(x) * _log1p(mu * _abs(x)) / _log1p(mu)
 
 
@@ -309,6 +308,7 @@ def mulaw_quantize(x, mu=256):
         :func:`nnmnkwii.preprocessing.inv_mulaw`
         :func:`nnmnkwii.preprocessing.inv_mulaw_quantize`
     """
+    mu = mu-1
     y = mulaw(x, mu)
     # scale [-1, 1] to [0, mu]
     return _asint((y + 1) / 2 * mu)
@@ -336,6 +336,7 @@ def inv_mulaw_quantize(y, mu=256):
         :func:`nnmnkwii.preprocessing.mulaw_quantize`
     """
     # [0, m) to [-1, 1]
+    mu = mu-1
     y = 2 * _asfloat(y) / mu - 1
     return inv_mulaw(y, mu)
 
