@@ -69,7 +69,7 @@ Based on
 ### Tacotron Training
 - train_tacotron.py 내에서 '--data_paths'를 지정한 후, train할 수 있다.
 ```
-parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\Tacotron-Wavenet-Vocoder-hccho\\data\\son')
+parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder\\data\\moon,D:\\Tacotron-Wavenet-Vocoder\\data\\son')
 ```
 - train을 이어서 계속하는 경우에는 '--load_path'를 지정해 주면 된다.
 ```
@@ -92,7 +92,7 @@ parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder\\data\
 ### Wavenet Vocoder Training
 - train_vocoder.py 내에서 '--data_dir'를 지정한 후, train할 수 있다.
 ```
-DATA_DIRECTORY =  'D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son'
+DATA_DIRECTORY =  'D:\\Tacotron-Wavenet-Vocoder\\data\\moon,D:\\Tacotron-Wavenet-Vocoder\\data\\son'
 parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
 ```
 - train을 이어서 계속하는 경우에는 '--logdir'를 지정해 주면 된다.
