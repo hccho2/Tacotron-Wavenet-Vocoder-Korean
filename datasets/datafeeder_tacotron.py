@@ -208,7 +208,7 @@ class DataFeederTacotron(threading.Thread):
                         data_dir = [data_dir for data_dir in self.data_dirs if "krbook" in data_dir][0]
 
                 if self._step < self._hp.initial_phase_step:  # 'initial_phase_step': 8000
-                    example = [self._get_next_example(data_dir) for _ in range(int(n * self._batches_per_group // len(self.data_dirs)))]  # _batches_per_group 8,또는 32 만큼의 batch data를 만드낟. 각각의 batch size는 2, 또는 32
+                    example = [self._get_next_example(data_dir) for _ in range(int(n * self._batches_per_group // len(self.data_dirs)))]  # _batches_per_group 8,또는 32 만큼의 batch data를 만. 각각의 batch size는 2, 또는 32
                 else:
                     example = [self._get_next_example(data_dir) for _ in range(int(n * self._batches_per_group * self.data_ratio[data_dir]))]
                 examples.extend(example)
