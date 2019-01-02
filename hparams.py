@@ -137,7 +137,7 @@ hparams = tf.contrib.training.HParams(
     enc_proj_width = 3,                #cbhg, projection layer (2번째 conv1d), kernel size
 
     # Attention
-    attention_type = 'bah_mon_norm', # ntm2-5
+    attention_type = 'bah_mon_norm', 
     attention_size = 256,
     attention_state_size = 256,
 
