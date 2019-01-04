@@ -275,7 +275,7 @@ class Tacotron():
                         0.5 * tf.reduce_mean(l1 * expanded_loss_coeff) + 0.5 * tf.reduce_mean(l1_priority * expanded_loss_coeff)
                 self.linear_loss = tf.reduce_mean( 0.5 * (tf.reduce_mean(l1) + tf.reduce_mean(l1_priority)))
             else:
-                self.loss = tf.reduce_mean(mel_loss * expanded_loss_coeff) + tf.reduce_mean(l1 * expanded_loss_coeff)   # 이 loss는 사용하지 않고, 아래의 loss_without_coeff를 사용함
+                self.loss = tf.reduce_mean(mel_loss * expanded_loss_coeff) + tf.reduce_mean(l1 * expanded_loss_coeff)   # optimize할 때는 self.loss를 사용하고, 출력할 때는 아래의 loss_without_coeff를 사용함
                 self.linear_loss = tf.reduce_mean(l1)
 
             self.mel_loss = tf.reduce_mean(mel_loss)
