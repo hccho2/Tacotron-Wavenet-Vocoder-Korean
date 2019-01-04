@@ -77,14 +77,14 @@ class TacoTrainingHelper(Helper):
     def sample(self, time, outputs, state, name=None):
         return tf.tile([0], [self._batch_size])  # Return all 0; we ignore them
 
-    def next_inputs(self, time, outputs, state, sample_ids, name=None):  # time에 해당하는 input을 만들어 return해야 한다.
+    def next_inputs(self, time, outputs, state, sample_ids, name=None):  # # time+1 에 들어갈 input을 만들어 return해야 한다.
         with tf.name_scope(name or 'TacoTrainingHelper'):
             finished = (time + 1 >= self._lengths)
             if self._rnn_decoder_test_mode:
                 next_inputs = outputs[:, -self._output_dim:]   # -self._output_dim:  <---- 마지막 self._output_dim 개
             else:
                 next_inputs = self._targets[:, time, :]
-            return (finished, next_inputs, state)
+            return (finished, next_inputs, state)   # finished=False이면 next_inputs, state는 사용되지 않는다.
 
 
 def _go_frames(batch_size, output_dim):
