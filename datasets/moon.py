@@ -100,7 +100,7 @@ def _process_utterance(out_dir, wav_path, text, hparams):
     elif hparams.input_type=='mulaw':
         #[-1, 1]
         out = audio.mulaw(wav, hparams.quantize_channels)
-        constant_values = mulaw(0., hparams.quantize_channels)
+        constant_values = audio.mulaw(0., hparams.quantize_channels)
         out_dtype = np.float32
 
     else:  # raw
