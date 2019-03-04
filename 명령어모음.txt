@@ -1,0 +1,7 @@
+python preprocess.py --num_workers 10 --name son --in_dir .\datasets\son --out_dir .\data\son
+
+
+python preprocess.py --num_workers 10 --name moon --in_dir .\datasets\moon --out_dir .\data\moon
+
+
+python train_tacotron.py
