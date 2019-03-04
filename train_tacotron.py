@@ -258,7 +258,7 @@ def main():
 
     parser.add_argument('--log_dir', default='logdir-tacotron')
     
-    parser.add_argument('--data_paths', default='D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son')
+    parser.add_argument('--data_paths', default='.\\data\\moon,.\\data\\son')
     
     
     parser.add_argument('--load_path', default=None)   # 아래의 'initialize_path'보다 우선 적용
