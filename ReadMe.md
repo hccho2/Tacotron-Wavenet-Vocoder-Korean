@@ -62,14 +62,14 @@ Based on
 - KSS Dataset이나 LJ Speech Dataset는 이미 적당한 길이로 나누어져 있기 때문에, data의 Quality는 우수하다.
 - 각 speaker별로 wav 파일을 특정 directory에 모은 후, text와 wav파일의 관계를 설정하는 파일을 만든 후, preprocess.py를 실행하면 된다. 다음의 예는 son.py에서 확인 할 수 있듯이 'son-recognition-All.json'에 필요한 정보를 모아 놓았다.
 - 각자의 상황에 맞게 preprocessing하는 코드를 작성해야 한다. 이 project에서는 son, moon 2개의 example이 포함되어 있다.
-> python preprocess.py --num_workers 8 --name son --in_dir D:\datasets\son --out_dir .\data\son
+> python preprocess.py --num_workers 8 --name son --in_dir .\datasets\son --out_dir .\data\son
 - 위의 과정을 거치든 또는 다른 방법을 사용하든 speaker별 data 디렉토리에 npz파일이 생성되면 train할수 있는 준비가 끝난다. npz파일에는 dict형의 data가 들어가게 되는데, key는 ['audio', 'mel', 'linear', 'time_steps', 'mel_frames', 'text', 'tokens', 'loss_coeff']로 되어 있다. 중요한 것은 audio의 길이가 mel, linear의 hop_size 배로 되어야 된다는 것이다.
 
 
 ### Tacotron Training
 - train_tacotron.py 내에서 '--data_paths'를 지정한 후, train할 수 있다.
 ```
-parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder\\data\\moon,D:\\Tacotron-Wavenet-Vocoder\\data\\son')
+parser.add_argument('--data_paths', default='.\\data\\moon,.\\data\\son')
 ```
 - train을 이어서 계속하는 경우에는 '--load_path'를 지정해 주면 된다.
 ```
