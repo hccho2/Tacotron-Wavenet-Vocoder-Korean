@@ -5,3 +5,7 @@ python preprocess.py --num_workers 10 --name moon --in_dir .\datasets\moon --out
 
 
 python train_tacotron.py
+
+
+python train_vocoder.py
+
