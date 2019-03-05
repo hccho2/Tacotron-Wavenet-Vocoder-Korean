@@ -41,9 +41,10 @@ Based on
 * 참고 코드 등에서의 복잡한 option을 많이 줄였습니다.
 
 	
-## Tacotron에서 좋은 결과를 얻기 위해서는 
+## Tacotron 1에서 좋은 결과를 얻기 위해서는 
 - BahdanauMonotonicAttention에 normalize=True로 적용하면 Attention이 잘 학습된다.
 - Location Sensitive Attention, GMM Attention등은 제 경험으로는 성능이 잘 나지 않음.
+- Tacotron2에서는 Locatin Sensitive Attention과 Stop Token이 결합하여 Tacotron1보다 빠른게 수렴됨.
 
 
 ## 단계별 실행
