@@ -91,6 +91,7 @@ parser.add_argument('--data_paths', default='D:\\Tacotron-Wavenet-Vocoder\\data\
 
 ### Wavenet Vocoder Training
 - train_vocoder.py 내에서 '--data_dir'를 지정한 후, train할 수 있다.
+- memory 부족으로 training 되지 않거나 너무 느리면, hyper paramerter 중 sample_size를 줄이면 된다. 그러나 receptive field보다 적게 하면 안된다. 물론 batch_size를 줄일 수도 있다.
 ```
 DATA_DIRECTORY =  'D:\\Tacotron-Wavenet-Vocoder\\data\\moon,D:\\Tacotron-Wavenet-Vocoder\\data\\son'
 parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
