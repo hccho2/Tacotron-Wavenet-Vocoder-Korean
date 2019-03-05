@@ -33,7 +33,7 @@ def main():
     
     parser = argparse.ArgumentParser(description='WaveNet example network')
     
-    DATA_DIRECTORY =  'D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\moon,D:\\hccho\\Tacotron-Wavenet-Vocoder-hccho\\data\\son'
+    DATA_DIRECTORY =  '.\\data\\moon,.\\data\\son'
     parser.add_argument('--data_dir', type=str, default=DATA_DIRECTORY, help='The directory containing the VCTK corpus.')
 
 
