@@ -33,12 +33,16 @@ def mu_law_encode(audio, quantization_channels):
         return tf.to_int32((signal + 1) / 2 * mu + 0.5)
 
 
-def mu_law_decode(output, quantization_channels):
+def mu_law_decode(output, quantization_channels, quantization=True):
     '''Recovers waveform from quantized values.'''
     with tf.name_scope('decode'):
         mu = quantization_channels - 1
         # Map values back to [-1, 1].
-        signal = 2 * (tf.to_float(output) / mu) - 1
+        if quantization:
+            signal = 2 * (tf.to_float(output) / mu) - 1
+        else:
+            signal = output
         # Perform inverse of mu-law transformation.
         magnitude = (1 / mu) * ((1 + mu)**abs(signal) - 1)
         return tf.sign(signal) * magnitude
+
