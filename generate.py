@@ -1,9 +1,16 @@
 #  coding: utf-8
 """
+sample_rate = 16000이므로, samples 48000이면 3초 길이가 된다.
+
 > python generate.py --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2018-12-21T22-58-10
-> python generate.py --wav_seed ./logdir-wavenet/seed.wav --mel ./logdir-wavenet/mel-son.npy --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2018-12-21T22-58-10   
+> python generate.py --wav_seed ./logdir-wavenet/seed.wav --mel ./logdir-wavenet/mel-son.npy --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2018-12-21T22-58-10   <----scalar_input = True
 > python generate.py --wav_seed ./logdir-wavenet/seed.wav --mel ./logdir-wavenet/mel-moon.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2018-12-21T22-58-10
-> python generate.py --wav_seed ./logdir-wavenet/seed.wav --mel ./logdir-tacotron/generate/mel-2018-12-25_22-27-50-0.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2018-12-21T22-58-10
+python generate.py --wav_seed ./logdir-wavenet/seed.wav --mel ./logdir-tacotron/generate/mel-2018-12-25_22-27-50-0.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2018-12-21T22-58-10
+
+
+gc_id = 0(moon), 1(son)
+python generate.py --mel ./logdir-wavenet/mel-moon.npy --gc_cardinality 2 --gc_id 0 ./logdir-wavenet/train/2018-12-21T22-58-10
+python generate.py --mel ./logdir-wavenet/mel-son.npy --gc_cardinality 2 --gc_id 1 ./logdir-wavenet/train/2018-12-21T22-58-10
 
 
 """
@@ -194,7 +201,7 @@ def main():
         last_sample_timestamp = datetime.now()
         for step in range(sample_size):  # 원하는 길이를 구하기 위해 loop 
 
-            window = waveform[:,-1:]  # 제일 끝에 있는 1개만 samples에 넣어 준다.
+            window = waveform[:,-1:]  # 제일 끝에 있는 1개만 samples에 넣어 준다.  window: shape(N,1)
  
     
             # Run the WaveNet to predict the next sample.
@@ -223,7 +230,7 @@ def main():
                 # argmax로 선택하지 않기 때문에, 같은 입력이 들어가도 달라질 수 있다.
                 sample = [[np.random.choice(np.arange(quantization_channels), p=p)] for p in scaled_prediction]  # choose one sample per batch
             
-            waveform = np.concatenate([waveform,sample],axis=-1)
+            waveform = np.concatenate([waveform,sample],axis=-1)   #window.shape: (N,1)
     
             # Show progress only once per second.
             current_sample_timestamp = datetime.now()
@@ -239,12 +246,16 @@ def main():
     
         
         # Save the result as a wav file.    
-        if scalar_input:
+        if hparams.input_type == 'raw':
             out = waveform[:,net.receptive_field:]
-        else:
-            decode = mu_law_decode(samples, quantization_channels)
+        elif hparams.input_type == 'mulaw':
+            decode = mu_law_decode(samples, quantization_channels,quantization=False)
             out = sess.run(decode, feed_dict={samples: waveform[:,net.receptive_field:]})
-        
+        else:  # 'mulaw-quantize'
+            decode = mu_law_decode(samples, quantization_channels,quantization=True)
+            out = sess.run(decode, feed_dict={samples: waveform[:,net.receptive_field:]})          
+            
+            
         # save wav
         for i in range(net.batch_size):
             config.wav_out_path= logdir + '/test-{}.wav'.format(i)
