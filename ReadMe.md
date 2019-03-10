@@ -119,7 +119,7 @@ parser.add_argument('--logdir', type=str, default=LOGDIR)
 	- [sample-moon](https://www.dropbox.com/s/rcz29g64v6pyzhv/moon-wavenet.wav?dl=0): tacotron + wavenet vocoder(step 245K)
 
 ### 음성을 처음 공부하는 분들께
-* Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tuto…/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
+* Tensorflow의 [Simple Audio Recognition](https://www.tensorflow.org/tutorials/sequences/audio_recognition)은 음성관련 공부를 처음 시작하는 사람들에게 좋은 시작점이 될 수 있다.
 * 이를 통해, wav로 된 음성을 stft으로 변환하고 다시 mel spectrogram으로 변환하는 과정을 공부할 수 있다. 
 * Simple Audio Recognition을 공부한 후에는 Tacotron을 공부할 수 있수도 있지만, 딥러닝에서의 기본인 RNN, Attention에 관한 공부를 미리해 두며 더욱 좋다.
 * 이 [자료](https://github.com/hccho2/hccho2.github.io/blob/master/DeepLearning.pdf)는 음성인식 기초, Tacotron, Wavenet 등에 관한 내용을 제가 정리한 것입니다(page 133).
