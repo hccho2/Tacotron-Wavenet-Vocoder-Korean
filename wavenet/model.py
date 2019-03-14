@@ -57,7 +57,7 @@ class WaveNetModel(object):
             
             self.dilation_queue=[]
             for i,d in enumerate(self.dilations):
-                q = tf.Variable(initial_value=tf.zeros(shape=[self.batch_size,d*(self.filter_width-1)+1,self.dilation_channels], dtype=tf.float32), name='dilation_queue'.format(i), trainable=False)
+                q = tf.Variable(initial_value=tf.zeros(shape=[self.batch_size,d*(self.filter_width-1)+1,self.residual_channels], dtype=tf.float32), name='dilation_queue'.format(i), trainable=False)
                 self.dilation_queue.append(q)
         
         # restore했을 때, Dilation_Queue,Causal_Queue는 0으로 initialization해야 한다.
