@@ -1,4 +1,4 @@
-# Tocotron + Wavenet Vocoder + Korean TTS
+# Tacotron + Wavenet Vocoder + Korean TTS
 Tacotron모델과 Wavenet Vocoder를 결합하여  한국어 TTS구현하는 project입니다.
 
 Based on 
