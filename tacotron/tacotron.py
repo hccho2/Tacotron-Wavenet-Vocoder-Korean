@@ -13,12 +13,15 @@
 
 """
 
-
+# +
+# OutputProjectionWrapper
+# -
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.contrib.seq2seq import BasicDecoder, BahdanauAttention, BahdanauMonotonicAttention, LuongAttention
-from tensorflow.contrib.rnn import GRUCell, MultiRNNCell, OutputProjectionWrapper, ResidualWrapper
+import tensorflow_addons as tfa
+from tensorflow_addons.seq2seq import BasicDecoder, BahdanauAttention, BahdanauMonotonicAttention, LuongAttention
+from tensorflow.compat.v1.nn.rnn_cell import MultiRNNCell, ResidualWrapper, GRUCell
 
 from utils.infolog import log
 from text.symbols import symbols
@@ -165,7 +168,7 @@ class Tacotron():
             concat_cell = ConcatOutputAndAttentionWrapper(dec_prenet_outputs, embed_to_concat=speaker_embed)  # concat(output,attention,speaker_embed)해서 새로운 output을 만든다.
                         
             # Decoder (layers specified bottom to top):  dec_rnn_size= 256
-            cells = [OutputProjectionWrapper(concat_cell, hp.dec_rnn_size)]   # OutputProjectionWrapper는 논문에 언급이 없는 것 같은데...
+            cells = [tfa.seq2seq.BasicDecoder(concat_cell, hp.dec_rnn_size)]   # OutputProjectionWrapper는 논문에 언급이 없는 것 같은데...
             for _ in range(hp.dec_layer_num):  # hp.dec_layer_num = 2
                 cells.append(ResidualWrapper(GRUCell(hp.dec_rnn_size)))
 
@@ -173,7 +176,7 @@ class Tacotron():
             decoder_cell = MultiRNNCell(cells, state_is_tuple=True)
 
             # Project onto r mel spectrograms (predict r outputs at each RNN step):
-            output_cell = OutputProjectionWrapper(decoder_cell, hp.num_mels * hp.reduction_factor)   # 여기에 stop token도 나올 수 있도록...수정하면 되지 않을까???   (hp.num_mels+1) * hp.reduction_factor
+            output_cell = tfa.seq2seq.BasicDecoder(decoder_cell, hp.num_mels * hp.reduction_factor)   # 여기에 stop token도 나올 수 있도록...수정하면 되지 않을까???   (hp.num_mels+1) * hp.reduction_factor
             decoder_init_state = output_cell.zero_state(batch_size=batch_size, dtype=tf.float32) # 여기서 zero_state를 부르면, 위의 AttentionWrapper에서 이미 넣은 준 값도 포함되어 있다.
 
             if hp.model_type == "deepvoice":

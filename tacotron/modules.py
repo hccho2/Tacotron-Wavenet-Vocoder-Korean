@@ -1,11 +1,16 @@
 # coding: utf-8
 # Code based on https://github.com/keithito/tacotron/blob/master/models/tacotron.py
 
-import tensorflow as tf
-from tensorflow.contrib.rnn import GRUCell
-from tensorflow.python.layers import core
-from tensorflow.contrib.seq2seq.python.ops.attention_wrapper import _bahdanau_score, _BaseAttentionMechanism, BahdanauAttention, AttentionWrapper, AttentionWrapperState
+# +
+# from sklearn.metrics import balanced_accuracy_score
+# -
 
+import tensorflow as tf
+import tensorflow_addons as tfa
+from tensorflow.compat.v1.nn.rnn_cell import GRUCell
+from tensorflow.python.layers import core
+from tensorflow_addons.seq2seq import AttentionWrapper, BahdanauAttention, AttentionWrapperState
+# from tensorflow.contrib.seq2seq.python.ops.attention_wrapper import _bahdanau_score, _BaseAttentionMechanism
 
 def get_embed(inputs, num_inputs, embed_size, name):  # speaker_id, self.num_speakers, hp.enc_prenet_sizes[-1], "before_highway"
     embed_table = tf.get_variable(name, [num_inputs, embed_size], dtype=tf.float32, initializer=tf.truncated_normal_initializer(stddev=0.1))

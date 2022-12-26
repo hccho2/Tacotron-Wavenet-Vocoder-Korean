@@ -73,7 +73,7 @@ def collapse_whitespace(text):
 def convert_to_ascii(text):
     '''Converts to ascii, existed in keithito but deleted in carpedm20'''
     return unidecode(text)
-    
+
 
 def basic_cleaners(text):
     '''Basic pipeline that lowercases and collapses whitespace without transliteration.'''

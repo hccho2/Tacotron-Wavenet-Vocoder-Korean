@@ -12,6 +12,7 @@ from datetime import datetime
 from functools import partial
 
 from hparams import hparams, hparams_debug_string
+
 from tacotron import create_model, get_most_recent_checkpoint
 
 from utils import ValueWindow, prepare_dirs
@@ -278,7 +279,7 @@ def main():
     parser.add_argument('--slack_url', help='Slack webhook URL to get periodic reports.')
     parser.add_argument('--git', action='store_true', help='If set, verify that the client is clean.')  # The store_true option automatically creates a default value of False.
 
-    config = parser.parse_args()
+    config = parser.parse_known_args()
     config.data_paths = config.data_paths.split(",")
     setattr(hparams, "num_speakers", len(config.data_paths))
 
@@ -304,3 +305,5 @@ def main():
 
 if __name__ == '__main__':
     main()
+
+
