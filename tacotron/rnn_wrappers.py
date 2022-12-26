@@ -1,12 +1,16 @@
 # coding: utf-8
+# coding: utf-8
 import numpy as np
 import tensorflow as tf
-from tensorflow.contrib.rnn import RNNCell
+import tensorflow_addons as tfa
+from tensorflow.compat.v1.nn.rnn_cell import RNNCell
 from tensorflow.python.ops import rnn_cell_impl
 #from tensorflow.contrib.data.python.util import nest
-from tensorflow.contrib.framework import nest
-from tensorflow.contrib.seq2seq.python.ops.attention_wrapper import _bahdanau_score, _BaseAttentionMechanism, BahdanauAttention, \
-                             AttentionWrapperState, AttentionMechanism, _BaseMonotonicAttentionMechanism,_maybe_mask_score,_prepare_memory,_monotonic_probability_fn
+from tensorflow import nest
+from tensorflow_addons.seq2seq import attention_wrapper, BahdanauAttention, AttentionWrapperState, BahdanauMonotonicAttention, AttentionMechanism
+from sklearn.metrics import balanced_accuracy_score, make_scorer
+# _BaseAttentionMechanism
+# ,_monotonic_probability_fn
 
 from tensorflow.python.layers.core import Dense
 from .modules import prenet
@@ -468,7 +472,7 @@ class ConcatOutputAndAttentionWrapper(RNNCell):
 
 
 
-class BahdanauMonotonicAttention_hccho(_BaseMonotonicAttentionMechanism):
+class BahdanauMonotonicAttention_hccho(BahdanauMonotonicAttention):
     """Monotonic attention mechanism with Bahadanau-style energy function.
 
     This type of attention enforces a monotonic constraint on the attention
@@ -527,7 +531,7 @@ class BahdanauMonotonicAttention_hccho(_BaseMonotonicAttentionMechanism):
         if dtype is None:
             dtype = tf.float32
         wrapped_probability_fn = functools.partial(
-            _monotonic_probability_fn, sigmoid_noise=sigmoid_noise, mode=mode,
+            sigmoid_noise=sigmoid_noise, mode=mode,
             seed=sigmoid_noise_seed)
         super(BahdanauMonotonicAttention_hccho, self).__init__(
             query_layer=Dense(num_units, name="query_layer", use_bias=False, dtype=dtype),
@@ -559,7 +563,7 @@ class BahdanauMonotonicAttention_hccho(_BaseMonotonicAttentionMechanism):
         """
         with tf.variable_scope(None, "bahdanau_monotonic_hccho_attention", [query]):
             processed_query = self.query_layer(query) if self.query_layer else query
-            score = _bahdanau_score(processed_query, self._keys, self._normalize)     # keys 가 memory임
+            score = balanced_accuracy_score(processed_query, self._keys, self._normalize)     # keys 가 memory임
             score_bias = tf.get_variable("attention_score_bias", dtype=processed_query.dtype, initializer=self._score_bias_init)
 
             #alignments_bias = tf.get_variable("alignments_bias", shape = state.get_shape()[-1],dtype=processed_query.dtype, initializer=tf.zeros_initializer())  # hccho
@@ -764,11 +768,11 @@ class GmmAttention(AttentionMechanism):
         with tf.name_scope(name, 'GmmAttentionMechanismInit'):
             if score_mask_value is None:
                 score_mask_value = 0.
-            self._maybe_mask_score = functools.partial(
-                _maybe_mask_score,
+            self.make_scorer = functools.partial(
+                make_scorer,
                 memory_sequence_length=memory_sequence_length,
                 score_mask_value=score_mask_value)
-            self._value = _prepare_memory(
+            self._value = attention_wrapper._prepare_memory(
                 memory, memory_sequence_length, check_inner_dims_defined)
             self._batch_size = (
                 self._value.shape[0].value or tf.shape(self._value)[0])
@@ -819,7 +823,7 @@ class GmmAttention(AttentionMechanism):
             # [batch_size, max_input_steps]
             phi = tf.reduce_sum(alpha * tf.exp(-beta * (kappa - mu) ** 2.), axis=1)
 
-        alignments = self._maybe_mask_score(phi)
+        alignments = self.make_scorer(phi)
         state = tf.squeeze(kappa, axis=2)
 
         return alignments, state

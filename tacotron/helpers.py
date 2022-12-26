@@ -3,11 +3,12 @@
 
 import numpy as np
 import tensorflow as tf
-from tensorflow.contrib.seq2seq import Helper
+# from tensorflow.contrib.seq2seq import Helper
+from tensorflow_addons.seq2seq import BasicDecoder
 
 
 # Adapted from tf.contrib.seq2seq.GreedyEmbeddingHelper
-class TacoTestHelper(Helper):
+class TacoTestHelper(BasicDecoder):
     def __init__(self, batch_size, output_dim, r):
         with tf.name_scope('TacoTestHelper'):
             self._batch_size = batch_size
@@ -41,7 +42,7 @@ class TacoTestHelper(Helper):
             return (finished, next_inputs, state)
 
 
-class TacoTrainingHelper(Helper):
+class TacoTrainingHelper(BasicDecoder):
     def __init__(self, inputs, targets, output_dim, r, rnn_decoder_test_mode=False):
         # inputs is [N, T_in], targets is [N, T_out, D]
         # output_dim = hp.num_mels = 80
